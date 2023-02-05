@@ -1,7 +1,7 @@
 import React from "react";
 import App from "./App";
 import { BrowserRouter as Router } from "react-router-dom";
-import Auth0ProviderWithHistory from "./auth/auth0-provider-with-history";
+import Auth0ProviderWithHistory from "./auth/Auth0ProviderWithHistory";
 import "./index.css";
 import { createRoot } from "react-dom/client";
 

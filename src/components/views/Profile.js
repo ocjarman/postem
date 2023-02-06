@@ -4,17 +4,18 @@ import CodeSnippet from "../CodeSnippet";
 import PageLayout from "../PageLayout";
 
 const Profile = () => {
-  const { user } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
 
   if (!user) {
     return null;
   }
+  console.log(user);
 
   return (
     <PageLayout>
       <div className="content-layout">
         <h1 id="page-title" className="content__title">
-          Profile Page
+          Profile
         </h1>
         <div className="content__body">
           <p id="page-description">

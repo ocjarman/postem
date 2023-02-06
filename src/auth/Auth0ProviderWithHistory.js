@@ -1,27 +1,23 @@
 // src/auth/auth0-provider-with-history.js
 
 import React from "react";
-import { useNavigate } from "react-router-dom";
 import { Auth0Provider } from "@auth0/auth0-react";
 
 const Auth0ProviderWithHistory = ({ children }) => {
   const domain = process.env.REACT_APP_AUTH0_DOMAIN;
   const clientId = process.env.REACT_APP_AUTH0_CLIENT_ID;
   const audience = process.env.REACT_APP_AUTH0_AUDIENCE;
-
-  const navigate = useNavigate();
-
-  const onRedirectCallback = (appState) => {
-    navigate.push(appState?.returnTo || window.location.pathname);
-  };
-
+  console.log(audience);
   return (
     <Auth0Provider
       domain={domain}
       clientId={clientId}
-      redirectUri={window.location.origin}
-      onRedirectCallback={onRedirectCallback}
-      audience={audience}
+      useRefreshTokens={true}
+      authorizationParams={{
+        redirect_uri: window.location.origin,
+        audience: audience,
+        scope: "read:current_user update:current_user_metadata",
+      }}
     >
       {children}
     </Auth0Provider>

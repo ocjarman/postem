@@ -21,13 +21,14 @@ class MainNav extends React.Component {
         >
           Profile
         </NavLink>
+
         <NavLink
-          to="/external-api"
+          to="/admin"
           exact="true"
           className="nav-link"
           activeclassname="router-link-exact-active"
         >
-          External API
+          Admin
         </NavLink>
       </div>
     );

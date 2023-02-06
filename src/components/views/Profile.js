@@ -1,48 +1,54 @@
+import { useAuth0 } from "@auth0/auth0-react";
 import React from "react";
-
-import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
-import Loading from "../Loading";
+import CodeSnippet from "../CodeSnippet";
+import PageLayout from "../PageLayout";
 
 const Profile = () => {
   const { user } = useAuth0();
-  const { name, picture, email } = user;
+
+  if (!user) {
+    return null;
+  }
 
   return (
-    <div>
-      <div className="row align-items-center profile-header">
-        <div className="col-md-2 mb-3">
-          <img
-            src={picture}
-            alt="Profile"
-            className="rounded-circle img-fluid profile-picture mb-3 mb-md-0"
-          />
-        </div>
-        <div className="col-md text-center text-md-left">
-          <h2>{name}</h2>
-          <p className="lead text-muted">{email}</p>
+    <PageLayout>
+      <div className="content-layout">
+        <h1 id="page-title" className="content__title">
+          Profile Page
+        </h1>
+        <div className="content__body">
+          <p id="page-description">
+            <span>
+              You can use the <strong>ID Token</strong> to get the profile
+              information of an authenticated user.
+            </span>
+            <span>
+              <strong>Only authenticated users can access this page.</strong>
+            </span>
+          </p>
+          <div className="profile-grid">
+            <div className="profile__header">
+              <img
+                src={user.picture}
+                alt="Profile"
+                className="profile__avatar"
+              />
+              <div className="profile__headline">
+                <h2 className="profile__title">{user.name}</h2>
+                <span className="profile__description">{user.email}</span>
+              </div>
+            </div>
+            <div className="profile__details">
+              <CodeSnippet
+                title="Decoded ID Token"
+                code={JSON.stringify(user, null, 2)}
+              />
+            </div>
+          </div>
         </div>
       </div>
-      <div className="row">
-        <pre className="col-12 text-light bg-dark p-4">
-          {JSON.stringify(user, null, 2)}
-        </pre>
-      </div>
-    </div>
+    </PageLayout>
   );
 };
 
-export default withAuthenticationRequired(Profile, {
-  onRedirecting: () => <Loading />,
-});
-
-/**withAuthenticationRequired takes the following arguments:
-
-- The component that you want to protect.
-
-- A configuration object to customize the authentication flow, WithAuthenticationRequiredOptions. This object takes the following optional properties:
-
-     - loginOptions: It behaves exactly like the configuration options you can pass to loginWithRedirect() to customize the login experience.
-
-     - returnTo: Lets you specify a path for React to redirect a user after the login transaction that the user triggered in this component completes.
-
-     - onRedirecting: It renders a component while your React application redirects the user to the login page. */
+export default Profile;

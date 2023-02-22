@@ -24,17 +24,17 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-client
-  .query({
-    query: gql`
-      query GetMe {
-        me {
-          id
-        }
-      }
-    `,
-  })
-  .then((result) => console.log(result));
+// client
+//   .query({
+//     query: gql`
+//       query GetMe {
+//         me {
+//           id
+//         }
+//       }
+//     `,
+//   })
+//   .then((result) => console.log(result));
 
 root.render(
   <ApolloProvider client={client}>
@@ -47,7 +47,7 @@ root.render(
         scope: "read:current_user update:current_user_metadata",
       }}
     >
-      <App />
+      <App client={client} />
     </Auth0Provider>
   </ApolloProvider>
 );

@@ -133,7 +133,6 @@ function ResponsiveAppBar() {
               </Button>
             ))}
           </Box>
-
           {isAuthenticated ? (
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
@@ -159,7 +158,6 @@ function ResponsiveAppBar() {
               >
                 <MenuItem onClick={handleCloseUserMenu}>
                   <Typography textAlign="center">{<LogoutButton />}</Typography>
-                  {/* <Typography textAlign="center">{<Profile />}</Typography> */}
                 </MenuItem>
               </Menu>
             </Box>

@@ -1,6 +1,6 @@
 import "./App.css";
-import LoginButton from "./components/LoginButton";
-import LogoutButton from "./components/LogoutButton";
+// import LoginButton from "./components/LoginButton";
+// import LogoutButton from "./components/LogoutButton";
 import Profile from "./components/Profile";
 import { gql } from "@apollo/client";
 import ResponsiveAppBar from "./components/Navbar/ResponsiveAppBar";
@@ -21,8 +21,8 @@ function App({ client }) {
   return (
     <div className="App">
       <ResponsiveAppBar />
-      <LoginButton />
-      <LogoutButton />
+      {/* <LoginButton />
+      <LogoutButton /> */}
       <Profile />
     </div>
   );

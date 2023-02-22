@@ -2,31 +2,40 @@ import "./App.css";
 import Profile from "./components/Profile";
 import { gql } from "@apollo/client";
 import ResponsiveAppBar from "./components/Navbar/ResponsiveAppBar";
-import { createTheme, ThemeProvider, styled } from "@mui/material/styles";
-
+import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setUser } from "./store/userSlice";
 function App({ client }) {
-  client
-    .query({
-      query: gql`
-        query GetMe {
-          me {
-            id
+  const dispatch = useDispatch();
+  useEffect(() => {
+    client
+      .query({
+        query: gql`
+          query GetMe {
+            me {
+              id
+              firstName
+              lastName
+            }
           }
-        }
-      `,
-    })
-    .then((result) => console.log(result));
+        `,
+      })
+      .then((result) => {
+        dispatch(setUser(result.data));
+      });
+  }, []);
 
   const theme = createTheme({
     palette: {
       primary: {
         main: `#F76F72`,
         light: "#ffffff",
+        contrastText: "#FFFFFF",
       },
       secondary: {
         light: "#ffffff",
         main: "#ffffff",
-        // dark: will be calculated from palette.secondary.main,
         contrastText: "#F76F72",
       },
     },

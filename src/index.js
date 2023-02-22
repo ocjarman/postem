@@ -14,9 +14,6 @@ import {
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 const client = new ApolloClient({
-  // link: new HttpLink({
-  //   uri: "https://plankton-app-cxczj.ondigitalocean.app/",
-  // }),
   link: new HttpLink({
     uri: "https://plankton-app-cxczj.ondigitalocean.app/",
     headers: {

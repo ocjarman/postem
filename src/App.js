@@ -11,7 +11,7 @@ function App() {
       <LoginButton />
       <LogoutButton />
       <Profile />
-      <DisplayLocations />
+      {/* <DisplayLocations /> */}
     </div>
   );
 }

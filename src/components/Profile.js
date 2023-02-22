@@ -17,9 +17,9 @@ const Profile = () => {
           },
         });
 
-        console.log({ accessToken });
+        // console.log({ accessToken });
 
-        const userDetailsByIdUrl = `https://${domain}/api/v2/users/${user.sub}`;
+        const userDetailsByIdUrl = `https://${domain}/api/v2/users/${user?.sub}`;
 
         const metadataResponse = await fetch(userDetailsByIdUrl, {
           headers: {
@@ -28,7 +28,7 @@ const Profile = () => {
         });
 
         const { user_metadata } = await metadataResponse.json();
-        console.log({ user_metadata });
+        // console.log({ user_metadata });
 
         setUserMetadata(user_metadata);
       } catch (e) {

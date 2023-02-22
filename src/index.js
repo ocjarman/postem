@@ -7,25 +7,33 @@ import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
+  HttpLink,
   gql,
 } from "@apollo/client";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 const client = new ApolloClient({
-  uri: "https://plankton-app-cxczj.ondigitalocean.app/",
-  // uri: "https://flyby-router-demo.herokuapp.com/",
+  // link: new HttpLink({
+  //   uri: "https://plankton-app-cxczj.ondigitalocean.app/",
+  // }),
+  link: new HttpLink({
+    uri: "https://plankton-app-cxczj.ondigitalocean.app/",
+    headers: {
+      authorization:
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwidXNlcl9pZCI6ImZha2UtYXV0aC11c2VyIiwiaWF0IjoxNTE2MjM5MDIyfQ._Mus7IAmE3hhnctAOmusbmBIS8xEkd9K4HXMfexLkwg",
+    },
+  }),
   cache: new InMemoryCache(),
 });
 
-console.log(client);
 client
   .query({
     query: gql`
-      query me {
-        id
-        firstName
-        lastName
+      query GetMe {
+        me {
+          id
+        }
       }
     `,
   })

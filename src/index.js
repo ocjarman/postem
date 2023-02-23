@@ -10,6 +10,8 @@ import {
   HttpLink,
   gql,
 } from "@apollo/client";
+import { Provider } from "react-redux";
+import store from "./store";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -24,18 +26,6 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-// client
-//   .query({
-//     query: gql`
-//       query GetMe {
-//         me {
-//           id
-//         }
-//       }
-//     `,
-//   })
-//   .then((result) => console.log(result));
-
 root.render(
   <ApolloProvider client={client}>
     <Auth0Provider
@@ -47,7 +37,9 @@ root.render(
         scope: "read:current_user update:current_user_metadata",
       }}
     >
-      <App client={client} />
+      <Provider store={store}>
+        <App client={client} />
+      </Provider>
     </Auth0Provider>
   </ApolloProvider>
 );

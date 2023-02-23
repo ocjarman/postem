@@ -11,6 +11,7 @@ import {
 } from "@apollo/client";
 import { Provider } from "react-redux";
 import store from "./store";
+import { BrowserRouter } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -36,9 +37,11 @@ root.render(
         scope: "read:current_user update:current_user_metadata",
       }}
     >
-      <Provider store={store}>
-        <App client={client} />
-      </Provider>
+      <BrowserRouter>
+        <Provider store={store}>
+          <App client={client} />
+        </Provider>
+      </BrowserRouter>
     </Auth0Provider>
   </ApolloProvider>
 );

@@ -5,6 +5,9 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setUser } from "./store/userSlice";
+import { Routes, Route } from "react-router-dom";
+import Home from "./components/Home";
+
 function App({ client }) {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -58,10 +61,19 @@ function App({ client }) {
 
   return (
     <ThemeProvider theme={theme}>
-      {/* <div className="App"> */}
       <ResponsiveAppBar />
-      <Profile />
-      {/* </div> */}
+      {/* <Profile /> */}
+      <Routes>
+        {/*-------------------- home page---------------------*/}
+        <Route path="/" element={<Home />} />
+        {/*--------------------a page for room initialization---------------------*/}
+        <Route path="/profile" element={<Profile />} />
+        {/* <Route path="/404" element={<Error />} /> */}
+        {/* <Route path="/blog" element={<Blog />} />
+      <Route path="/faq" element={<Pricing />} />
+      <Route path="/terms" element={<Terms />} />
+      <Route path="/*" element={<Error />} /> */}
+      </Routes>
     </ThemeProvider>
   );
 }

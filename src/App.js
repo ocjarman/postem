@@ -1,4 +1,3 @@
-import "./App.css";
 import Profile from "./components/Profile";
 import { gql } from "@apollo/client";
 import ResponsiveAppBar from "./components/Navbar/ResponsiveAppBar";
@@ -59,10 +58,10 @@ function App({ client }) {
 
   return (
     <ThemeProvider theme={theme}>
-      <div className="App">
-        <ResponsiveAppBar />
-        <Profile />
-      </div>
+      {/* <div className="App"> */}
+      <ResponsiveAppBar />
+      <Profile />
+      {/* </div> */}
     </ThemeProvider>
   );
 }

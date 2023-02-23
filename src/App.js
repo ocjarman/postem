@@ -62,17 +62,14 @@ function App({ client }) {
   return (
     <ThemeProvider theme={theme}>
       <ResponsiveAppBar />
-      {/* <Profile /> */}
       <Routes>
-        {/*-------------------- home page---------------------*/}
         <Route path="/" element={<Home />} />
-        {/*--------------------a page for room initialization---------------------*/}
         <Route path="/profile" element={<Profile />} />
-        {/* <Route path="/404" element={<Error />} /> */}
-        {/* <Route path="/blog" element={<Blog />} />
-      <Route path="/faq" element={<Pricing />} />
-      <Route path="/terms" element={<Terms />} />
-      <Route path="/*" element={<Error />} /> */}
+        {/* <Route path="/404" element={<Error />} />
+         <Route path="/blog" element={<Blog />} />
+          <Route path="/faq" element={<Pricing />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/*" element={<Error />} /> */}
       </Routes>
     </ThemeProvider>
   );

@@ -14,7 +14,7 @@ import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
 import LoginButton from "./LoginButton";
 import LogoutButton from "./LogoutButton";
-import Profile from "../Profile";
+import Profile from "../pages/profile/Profile";
 import { useAuth0 } from "@auth0/auth0-react";
 import mailIcon from "../../static/transparentLetter.png";
 const pages = ["Products", "Pricing", "Blog"];
@@ -120,7 +120,7 @@ function ResponsiveAppBar() {
               textDecoration: "none",
             }}
           >
-            LOGO
+            POST'EM
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
@@ -157,7 +157,12 @@ function ResponsiveAppBar() {
                 onClose={handleCloseUserMenu}
               >
                 <MenuItem onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{<LogoutButton />}</Typography>
+                  <LogoutButton />
+                </MenuItem>
+                <MenuItem onClick={handleCloseUserMenu}>
+                  <Button color="primary" href="/profile">
+                    Profile
+                  </Button>
                 </MenuItem>
               </Menu>
             </Box>

@@ -1,28 +1,25 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.css";
 import App from "./App";
 import { Auth0Provider } from "@auth0/auth0-react";
-import {
-  ApolloClient,
-  InMemoryCache,
-  ApolloProvider,
-  HttpLink,
-  gql,
-} from "@apollo/client";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import { Provider } from "react-redux";
 import store from "./store";
+import { BrowserRouter } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 const client = new ApolloClient({
-  link: new HttpLink({
-    uri: "https://plankton-app-cxczj.ondigitalocean.app/",
-    headers: {
-      authorization:
-        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwidXNlcl9pZCI6ImZha2UtYXV0aC11c2VyIiwiaWF0IjoxNTE2MjM5MDIyfQ._Mus7IAmE3hhnctAOmusbmBIS8xEkd9K4HXMfexLkwg",
-    },
-  }),
+  uri: "https://plankton-app-cxczj.ondigitalocean.app/",
+  headers: {
+    authorization:
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwidXNlcl9pZCI6ImZha2UtYXV0aC11c2VyIiwiaWF0IjoxNTE2MjM5MDIyfQ._Mus7IAmE3hhnctAOmusbmBIS8xEkd9K4HXMfexLkwg",
+  },
+  onError: ({ networkError, graphQLErrors }) => {
+    console.log("graphQLErrors", graphQLErrors);
+    console.log("networkError", networkError);
+  },
+
   cache: new InMemoryCache(),
 });
 
@@ -37,9 +34,11 @@ root.render(
         scope: "read:current_user update:current_user_metadata",
       }}
     >
-      <Provider store={store}>
-        <App client={client} />
-      </Provider>
+      <BrowserRouter>
+        <Provider store={store}>
+          <App client={client} />
+        </Provider>
+      </BrowserRouter>
     </Auth0Provider>
   </ApolloProvider>
 );

@@ -1,11 +1,18 @@
-import "./App.css";
-import Profile from "./components/Profile";
+import Profile from "./components/pages/profile/Profile";
 import { gql } from "@apollo/client";
 import ResponsiveAppBar from "./components/Navbar/ResponsiveAppBar";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setUser } from "./store/userSlice";
+import {
+  setUser,
+  setFirstName,
+  setLastName,
+  setUserId,
+} from "./store/userSlice";
+import { Routes, Route } from "react-router-dom";
+import Home from "./components/pages/Home";
+
 function App({ client }) {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -22,7 +29,9 @@ function App({ client }) {
         `,
       })
       .then((result) => {
-        dispatch(setUser(result.data));
+        dispatch(setFirstName(result.data.me.firstName));
+        dispatch(setLastName(result.data.me.lastName));
+        dispatch(setUserId(result.data.me.id));
       });
   }, []);
 
@@ -49,20 +58,18 @@ function App({ client }) {
     },
   });
 
-  // custom components?
-  // const CustomCheckbox = styled(Checkbox)(({ theme }) => ({
-  //   color: theme.status.danger,
-  //   '&.Mui-checked': {
-  //     color: theme.status.danger,
-  //   },
-  // }));
-
   return (
     <ThemeProvider theme={theme}>
-      <div className="App">
-        <ResponsiveAppBar />
-        <Profile />
-      </div>
+      <ResponsiveAppBar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/profile" element={<Profile />} />
+        {/* <Route path="/404" element={<Error />} />
+         <Route path="/blog" element={<Blog />} />
+          <Route path="/faq" element={<Pricing />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/*" element={<Error />} /> */}
+      </Routes>
     </ThemeProvider>
   );
 }

@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import UpdateUsername from "./UpdateUsername";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
   const [userMetadata, setUserMetadata] = useState(null);
-
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getUserMetadata = async () => {
@@ -19,7 +20,7 @@ const Profile = () => {
           },
         });
 
-        const userDetailsByIdUrl = `https://${domain}/api/v2/users/${user.sub}`;
+        const userDetailsByIdUrl = `https://${domain}/api/v2/users/${user?.sub}`;
 
         const metadataResponse = await fetch(userDetailsByIdUrl, {
           headers: {
@@ -31,14 +32,17 @@ const Profile = () => {
         console.log({ user_metadata });
 
         setUserMetadata(user_metadata);
-       
+        console.log("user", user);
       } catch (e) {
-        console.log(e.message);
+        console.log("error", e.message);
+        console.log("user", user);
+
+        navigate("/");
       }
     };
 
     getUserMetadata();
-  }, [getAccessTokenSilently, user?.sub]);
+  }, [getAccessTokenSilently, user]);
 
   return (
     isAuthenticated && (

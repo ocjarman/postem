@@ -4,7 +4,12 @@ import ResponsiveAppBar from "./components/Navbar/ResponsiveAppBar";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setUser } from "./store/userSlice";
+import {
+  setUser,
+  setFirstName,
+  setLastName,
+  setUserId,
+} from "./store/userSlice";
 import { Routes, Route } from "react-router-dom";
 import Home from "./components/pages/Home";
 
@@ -25,6 +30,9 @@ function App({ client }) {
       })
       .then((result) => {
         dispatch(setUser(result.data));
+        dispatch(setFirstName());
+        dispatch(setLastName());
+        dispatch(setUserId());
       });
   }, []);
 

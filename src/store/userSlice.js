@@ -2,6 +2,9 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   user: {},
+  firstName: "",
+  lastName: "",
+  id: "",
 };
 
 export const userSlice = createSlice({
@@ -11,11 +14,21 @@ export const userSlice = createSlice({
     setUser: (state, action) => {
       state.user = action.payload;
     },
-    resetUser: (state, action) => {
+    setUserId: (state) => {
+      state.id = state.user.me.id;
+    },
+    setFirstName: (state) => {
+      state.firstName = state.user.me.firstName;
+    },
+    setLastName: (state) => {
+      state.lastName = state.user.me.lastName;
+    },
+    resetUser: (state) => {
       state.user = {};
     },
   },
 });
 
-export const { setUser, resetUser } = userSlice.actions;
+export const { setUser, resetUser, setFirstName, setLastName, setUserId } =
+  userSlice.actions;
 export default userSlice.reducer;

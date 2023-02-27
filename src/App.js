@@ -29,10 +29,9 @@ function App({ client }) {
         `,
       })
       .then((result) => {
-        dispatch(setUser(result.data));
-        dispatch(setFirstName());
-        dispatch(setLastName());
-        dispatch(setUserId());
+        dispatch(setFirstName(result.data.me.firstName));
+        dispatch(setLastName(result.data.me.lastName));
+        dispatch(setUserId(result.data.me.id));
       });
   }, []);
 

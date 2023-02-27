@@ -1,9 +1,9 @@
 import React from "react";
 import { TextField, Button } from "@mui/material";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { useMutation, gql } from "@apollo/client";
-
+import { setFirstName, setLastName } from "../../../store/userSlice";
 const UPDATE_USER_MUTATION = gql`
   mutation UpdateProfile($firstName: String, $lastName: String) {
     updateProfile(firstName: $firstName, lastName: $lastName) {
@@ -13,9 +13,10 @@ const UPDATE_USER_MUTATION = gql`
 `;
 
 const UpdateUsername = () => {
-  const { user } = useSelector((state) => state.user);
-  const [firstName, setFirstName] = useState(`${user.me.firstName}`);
-  const [lastName, setLastName] = useState(`${user.me.lastName}`);
+  const dispatch = useDispatch();
+  const { firstName, lastName } = useSelector((state) => state.user);
+  const [newFirstName, setNewFirstName] = useState(firstName);
+  const [newLastName, setNewLastName] = useState(lastName);
   // const [email, setEmail] = useState("");
   const [updateUserInfo, { data, error, loading }] =
     useMutation(UPDATE_USER_MUTATION);
@@ -28,10 +29,10 @@ const UpdateUsername = () => {
       onSubmit={(e) => {
         e.preventDefault();
         updateUserInfo({
-          variables: { firstName, lastName },
+          variables: { firstName: newFirstName, lastName: newLastName },
         });
-        // dispatch(setFirstName(newFirstName));
-        // dispatch(setLastName(newLastName));
+        dispatch(setFirstName(newFirstName));
+        dispatch(setLastName(newLastName));
       }}
     >
       <TextField
@@ -39,8 +40,8 @@ const UpdateUsername = () => {
         type="text"
         label="First Name"
         variant="outlined"
-        defaultValue={`${user.me.firstName}`}
-        onChange={(e) => setFirstName(e.target.value)}
+        defaultValue={firstName}
+        onChange={(e) => setNewFirstName(e.target.value)}
       />
       <br />
       <TextField
@@ -48,8 +49,8 @@ const UpdateUsername = () => {
         type="text"
         label="Last Name"
         variant="outlined"
-        defaultValue={`${user.me.lastName}`}
-        onChange={(e) => setLastName(e.target.value)}
+        defaultValue={lastName}
+        onChange={(e) => setNewLastName(e.target.value)}
       />
       <br />
       <Button variant="contained" color="primary" type="submit">

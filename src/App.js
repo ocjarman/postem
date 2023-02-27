@@ -51,14 +51,6 @@ function App({ client }) {
     },
   });
 
-  // custom components?
-  // const CustomCheckbox = styled(Checkbox)(({ theme }) => ({
-  //   color: theme.status.danger,
-  //   '&.Mui-checked': {
-  //     color: theme.status.danger,
-  //   },
-  // }));
-
   return (
     <ThemeProvider theme={theme}>
       <ResponsiveAppBar />

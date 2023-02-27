@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { useMutation, gql } from "@apollo/client";
 import { setFirstName, setLastName } from "../../../store/userSlice";
+import styles from "./UpdateUsername.styles";
+
 const UPDATE_USER_MUTATION = gql`
   mutation UpdateProfile($firstName: String, $lastName: String) {
     updateProfile(firstName: $firstName, lastName: $lastName) {
@@ -17,15 +19,17 @@ const UpdateUsername = () => {
   const { firstName, lastName } = useSelector((state) => state.user);
   const [newFirstName, setNewFirstName] = useState(firstName);
   const [newLastName, setNewLastName] = useState(lastName);
-  // const [email, setEmail] = useState("");
+
   const [updateUserInfo, { data, error, loading }] =
     useMutation(UPDATE_USER_MUTATION);
 
   if (loading) console.log("loading");
   if (error) console.log(error.message);
   if (data) console.log({ data });
+
   return (
     <form
+      style={styles.sx.Form}
       onSubmit={(e) => {
         e.preventDefault();
         updateUserInfo({
@@ -36,7 +40,7 @@ const UpdateUsername = () => {
       }}
     >
       <TextField
-        style={{ width: "200px" }}
+        style={styles.sx.Input}
         type="text"
         label="First Name"
         variant="outlined"

@@ -32,6 +32,7 @@ const Profile = () => {
         console.log({ user_metadata });
 
         setUserMetadata(user_metadata);
+        console.log("user", user);
       } catch (e) {
         console.log("error", e.message);
         console.log("user", user);
@@ -41,7 +42,7 @@ const Profile = () => {
     };
 
     getUserMetadata();
-  }, [getAccessTokenSilently, user?.sub]);
+  }, [getAccessTokenSilently, user]);
 
   return (
     isAuthenticated && (
